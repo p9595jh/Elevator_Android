@@ -23,9 +23,9 @@ public class GetSuggestData extends GetRequest {
 
     @Override
     protected void onPreExecute() {
-        String serverURLStr = "http://13.124.210.148:3000/suggest";
+        String serverURLStr = MainActivity.SERVER_ADDRESS;
         try {
-            url = new URL(serverURLStr+"/get-data");  // http://serverURLStr/get-data
+            url = new URL(serverURLStr+"/suggest/get-data");  // http://serverURLStr/get-data
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -37,9 +37,6 @@ public class GetSuggestData extends GetRequest {
             return;
         ArrayList<Suggest> arrayList = getArrayListFromJSONString(jsonString);
 
-//        ArrayAdapter adapter = new ArrayAdapter(activity,
-//                android.R.layout.simple_list_item_1,
-//                arrayList.toArray());
         SuggestAdapter adapter = new SuggestAdapter(arrayList, activity, R.layout.suggestlistview);
         ListView listView = activity.findViewById(R.id.suggestlist);
         listView.setAdapter(adapter);

@@ -17,9 +17,9 @@ public class CheckLoginData extends PostRequest {
     }
 
     protected void onPreExecute() {
-        String serverURLStr = "http://13.124.210.148:3000/login";
+        String serverURLStr = MainActivity.SERVER_ADDRESS;
         try {
-            url = new URL(serverURLStr + "/checklogin");
+            url = new URL(serverURLStr + "/login/checklogin");
         }
         catch(MalformedURLException e) {
             e.printStackTrace();

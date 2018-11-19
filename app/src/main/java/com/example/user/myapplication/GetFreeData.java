@@ -23,9 +23,9 @@ public class GetFreeData extends GetRequest {
 
     @Override
     protected void onPreExecute() {
-        String serverURLStr = "http://13.124.210.148:3000/free";
+        String serverURLStr = MainActivity.SERVER_ADDRESS;
         try {
-            url = new URL(serverURLStr+"/get-data");  // http://serverURLStr/get-data
+            url = new URL(serverURLStr+"/free/get-data");  // http://serverURLStr/get-data
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

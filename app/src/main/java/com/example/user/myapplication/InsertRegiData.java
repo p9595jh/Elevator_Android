@@ -14,9 +14,9 @@ public class InsertRegiData extends PostRequest {
     }
 
     protected void onPreExecute() {
-        String serverURLStr = "http://13.124.210.148:3000/handleRegi";
+        String serverURLStr = MainActivity.SERVER_ADDRESS;
         try {
-            url = new URL(serverURLStr + "/insert");
+            url = new URL(serverURLStr + "/handleRegi/insert");
         }
         catch(MalformedURLException e) {
             e.printStackTrace();

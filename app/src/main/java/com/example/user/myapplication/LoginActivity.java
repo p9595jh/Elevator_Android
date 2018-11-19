@@ -1,5 +1,6 @@
 package com.example.user.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -51,4 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+        mainActivity.putExtra("idvalue", UserLoginData.getInstance().getId());
+        setResult(1234, mainActivity);
+        startActivityForResult(mainActivity, 1111);
+    }
 }

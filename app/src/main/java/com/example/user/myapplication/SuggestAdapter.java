@@ -1,6 +1,7 @@
 package com.example.user.myapplication;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,9 @@ public class SuggestAdapter extends BaseAdapter {
         TextView text = (TextView) view.findViewById(R.id.suggest_view_text);
 
         image.setImageResource(list.get(i).getImag());
-        id.setText(list.get(i).getId());
+        Uri uri = Uri.parse(MainActivity.SERVER_ADDRESS + "/images/profileimages/" + list.get(i).getId());
+        image.setImageURI(uri);
+        id.setText(list.get(i).getNickname());
         date.setText(list.get(i).getWritedata());
         text.setText(list.get(i).getComment());
 
