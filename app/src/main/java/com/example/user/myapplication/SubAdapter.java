@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class FreeAdapter extends BaseAdapter {
-    ArrayList<Free> list;
+public class SubAdapter extends BaseAdapter {
+    ArrayList<Sub> list;
     Context context;
     int resource;
 
-    public FreeAdapter(ArrayList<Free> list, Context context, int resource) {
+    public SubAdapter(ArrayList<Sub> list, Context context, int resource) {
         this.list = list;
         this.context = context;
         this.resource = resource;
@@ -38,13 +38,11 @@ public class FreeAdapter extends BaseAdapter {
             view = intflater.inflate(resource, viewGroup, false);
         }
 
-        TextView nickname = (TextView) view.findViewById(R.id.free_nickname);
-        TextView title = (TextView) view.findViewById(R.id.free_title);
-        TextView date = (TextView) view.findViewById(R.id.free_date);
+        TextView title = (TextView) view.findViewById(R.id.subcontent_listview);
+        TextView number = (TextView) view.findViewById(R.id.subcontent_listview_subscribes);
 
-        nickname.setText(list.get(i).getNickname());
-        date.setText(list.get(i).getDate());
-        title.setText(list.get(i).getTitle());
+        title.setText(list.get(i).getId());
+        number.setText("[" + list.get(i).getSubscribes().size() + "]");
 
         return view;
     }

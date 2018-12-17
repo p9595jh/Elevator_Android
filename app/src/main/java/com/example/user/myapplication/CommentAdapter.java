@@ -18,13 +18,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class SuggestAdapter extends BaseAdapter {
-    ArrayList<Suggest> list;
+public class CommentAdapter extends BaseAdapter {
+    ArrayList<Comment> list;
     Context context;
     int resource;
     Bitmap bitmap;
 
-    public SuggestAdapter(ArrayList<Suggest> list, Context context, int resource) {
+    public CommentAdapter(ArrayList<Comment> list, Context context, int resource) {
         this.list = list;
         this.context = context;
         this.resource = resource;
@@ -83,7 +83,7 @@ public class SuggestAdapter extends BaseAdapter {
         }
 
         id.setText(list.get(i).getNickname());
-        date.setText(list.get(i).getWritedata());
+        date.setText(list.get(i).getDate());
         text.setText(list.get(i).getComment());
 
         return view;

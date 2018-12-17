@@ -3,37 +3,65 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- suggestlistview에 연결됩니다 -->
-    <LinearLayout
+
+    <android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/suggest_text"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:text = "작성"
+                        android:id="@+id/suggest_button"/>
+
+                </LinearLayout>
+
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/swipe_layout">
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/suggestlist">
+
+                </ListView>
+
+                </android.support.v4.widget.SwipeRefreshLayout>
+
+            </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_width="280dp"
             android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:orientation="horizontal">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/suggest_text"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:text = "작성"
-                android:id="@+id/suggest_button"/>
+            android:weightSum="100"
+            android:layout_gravity="start"
+            android:gravity="center">
+
+            <include layout="@layout/activity_sidebar"/>
 
         </LinearLayout>
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/suggestlist"
-            android:layout_weight="1">
 
-        </ListView>
-
-    </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -15,20 +15,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class GetFreeData extends GetRequest {
-
+public class GetSubBoardData extends GetRequest {
     Activity activity;
+    String boardType;
 
-    public GetFreeData(Activity activity) {
+    public GetSubBoardData(Activity activity, String boardType) {
         super(activity);
         this.activity = activity;
+        this.boardType = boardType;
     }
 
     @Override
     protected void onPreExecute() {
         String serverURLStr = MainActivity.SERVER_ADDRESS;
         try {
-            url = new URL(serverURLStr+"/free/get-data");  // http://serverURLStr/get-data
+            url = new URL(serverURLStr+"/subboard/get-data?type="+boardType);  // http://serverURLStr/get-data
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -49,7 +50,7 @@ public class GetFreeData extends GetRequest {
             public void onItemClick(AdapterView<?> parent, View vClicked, int position, long id) {
                 Intent intent = new Intent(activity.getApplicationContext(), ContentActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("type", "free");
+                intent.putExtra("type", boardType);
                 intent.putExtra("num", ((Free) adapter.getItem(position)).getNum());
                 intent.putExtra("title", ((Free) adapter.getItem(position)).getTitle());
                 intent.putExtra("id", ((Free) adapter.getItem(position)).getId());

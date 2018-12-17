@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- 여기는 서브게시판 서브게시판 목록 리스트뷰에 연결되는 레이아웃입니다 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SUBCONTENT NAME"
+            android:id="@+id/subcontent_listview"
+            android:padding="10px"
+            android:layout_gravity="center"
+            android:textSize="70px"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[ * ]"
+            android:id="@+id/subcontent_listview_subscribes"
+            android:padding="10px"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

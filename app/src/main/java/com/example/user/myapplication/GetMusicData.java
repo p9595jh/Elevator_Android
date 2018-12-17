@@ -15,11 +15,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class GetFreeData extends GetRequest {
+public class GetMusicData extends GetRequest {
 
     Activity activity;
 
-    public GetFreeData(Activity activity) {
+    public GetMusicData(Activity activity) {
         super(activity);
         this.activity = activity;
     }
@@ -28,7 +28,7 @@ public class GetFreeData extends GetRequest {
     protected void onPreExecute() {
         String serverURLStr = MainActivity.SERVER_ADDRESS;
         try {
-            url = new URL(serverURLStr+"/free/get-data");  // http://serverURLStr/get-data
+            url = new URL(serverURLStr+"/music/get-data");  // http://serverURLStr/get-data
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -38,9 +38,9 @@ public class GetFreeData extends GetRequest {
     protected void onPostExecute(String jsonString) {
         if (jsonString == null)
             return;
-        ArrayList<Free> arrayList = getArrayListFromJSONString(jsonString);
+        ArrayList<Music> arrayList = getArrayListFromJSONString(jsonString);
 
-        final FreeAdapter adapter = new FreeAdapter(arrayList, activity, R.layout.freelistview);
+        final MusicAdapter adapter = new MusicAdapter(arrayList, activity, R.layout.freelistview);
         ListView listView = activity.findViewById(R.id.freelist);
         listView.setAdapter(adapter);
         listView.setDividerHeight(10);
@@ -49,23 +49,25 @@ public class GetFreeData extends GetRequest {
             public void onItemClick(AdapterView<?> parent, View vClicked, int position, long id) {
                 Intent intent = new Intent(activity.getApplicationContext(), ContentActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("type", "free");
-                intent.putExtra("num", ((Free) adapter.getItem(position)).getNum());
-                intent.putExtra("title", ((Free) adapter.getItem(position)).getTitle());
-                intent.putExtra("id", ((Free) adapter.getItem(position)).getId());
-                intent.putExtra("date", ((Free) adapter.getItem(position)).getDate());
-                intent.putExtra("nickname", ((Free) adapter.getItem(position)).getNickname());
-                intent.putExtra("content", ((Free) adapter.getItem(position)).getContent());
-                intent.putExtra("hit", ((Free) adapter.getItem(position)).getHit());
-                intent.putExtra("recommend", ((Free) adapter.getItem(position)).getRecommend());
-                intent.putExtra("comment", ((Free) adapter.getItem(position)).getComment());
+                intent.putExtra("type", "music");
+                intent.putExtra("num", ((Music) adapter.getItem(position)).getNum());
+                intent.putExtra("title", ((Music) adapter.getItem(position)).getTitle());
+                intent.putExtra("id", ((Music) adapter.getItem(position)).getId());
+                intent.putExtra("date", ((Music) adapter.getItem(position)).getDate());
+                intent.putExtra("nickname", ((Music) adapter.getItem(position)).getNickname());
+                intent.putExtra("content", ((Music) adapter.getItem(position)).getContent());
+                intent.putExtra("hit", ((Music) adapter.getItem(position)).getHit());
+                intent.putExtra("grade", ((Music) adapter.getItem(position)).getGrade());
+                intent.putExtra("comment", ((Music) adapter.getItem(position)).getComment());
+                intent.putExtra("gradeby", ((Music) adapter.getItem(position)).getGradeby());
+                intent.putExtra("audio", ((Music) adapter.getItem(position)).getAudio());
                 activity.startActivity(intent);
             }
         });
     }
 
-    public ArrayList<Free> getArrayListFromJSONString(String jsonString) {
-        ArrayList<Free> output = new ArrayList<>();
+    public ArrayList<Music> getArrayListFromJSONString(String jsonString) {
+        ArrayList<Music> output = new ArrayList<>();
         try {
 
             JSONArray jsonArray = new JSONArray(jsonString);
@@ -86,20 +88,29 @@ public class GetFreeData extends GetRequest {
                             0
                     ));
                 }
+                JSONArray gradebyArray = (JSONArray) jsonObject.get("gradeby");
+                GradeByList gradeByList = new GradeByList();
+                for (int j=0; j<gradebyArray.length(); j++) {
+                    gradeByList.add((String) gradebyArray.get(j));
+                }
 
-                Free free = new Free(
-                        jsonObject.getString("title"),
+                Music music = new Music(
                         jsonObject.getString("id"),
-                        jsonObject.getString("writedate"),
-                        jsonObject.getInt("num"),
                         jsonObject.getString("nickname"),
+                        jsonObject.getString("title"),
                         jsonObject.getString("content"),
+                        jsonObject.getString("tag"),
+                        jsonObject.getInt("grade"),
+                        jsonObject.getBoolean("boardRequest"),
+                        jsonObject.getString("writedate"),
                         jsonObject.getInt("hit"),
-                        jsonObject.getInt("recommend"),
-                        commentList
+                        jsonObject.getInt("num"),
+                        jsonObject.getString("audio"),
+                        commentList,
+                        gradeByList
                 );
 
-                output.add(free);
+                output.add(music);
             }
         } catch (JSONException e) {
             Log.e(TAG, "Exception in processing JSONString.", e);

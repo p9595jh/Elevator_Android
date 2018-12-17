@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user.myapplication">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -9,18 +10,30 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <activity android:name=".SplashActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".SuggestActivity" android:parentActivityName="MainActivity"></activity>
         <activity android:name=".FreeActivity" android:parentActivityName="MainActivity"></activity>
         <activity android:name=".LoginActivity" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".RegisterActivity" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".MusicActivity" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".ContentActivity"></activity>
+        <activity android:name=".SubActivity"></activity>
+        <activity android:name=".SubBoardActivity"></activity>
+        <activity android:name=".WriteActivity"></activity>
+        <activity android:name=".QRcodePrintActivity" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".QRcodeCheckActivity" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".TempMainActivity"></activity>
     </application>
 
 </manifest>

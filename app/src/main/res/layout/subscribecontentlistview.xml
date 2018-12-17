@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- 여기는 서브게시판 구독중인 서브게시판 리스트뷰에 연결되는 레이아웃입니다 -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:text="SUBSCRIBED SUBCONTENT NAME"
+        android:id="@+id/subscribe_subcontent_listview"
+        android:padding="10px"
+        android:gravity="fill"
+        android:textSize="70px"/>
+
+</android.support.constraint.ConstraintLayout>

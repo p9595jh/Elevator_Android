@@ -1,61 +1,63 @@
 package com.example.user.myapplication;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String SERVER_ADDRESS = "http://13.125.236.173:3000";
+    public static final String SERVER_ADDRESS = "http://54.180.124.12:3000";
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button login = (Button) findViewById(R.id.button1);
-        Button register = (Button) findViewById(R.id.button2);
-        Button free = (Button) findViewById(R.id.button3);
-        Button suggest = (Button) findViewById(R.id.button4);
-        Button free_detail = (Button) findViewById(R.id.button5);
+        new GetNoticeData(MainActivity.this).execute();
 
-        login.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+        final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new GetNoticeData(MainActivity.this).execute();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
-        register.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
-        free.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FreeActivity.class);
-                startActivity(intent);
-            }
-        });
-        suggest.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SuggestActivity.class);
-                startActivity(intent);
-            }
-        });
+
+        AboutSideBar.init(MainActivity.this);
     }
 
+    private long pressedTime = 0;
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if ( requestCode == 1111 ) {
-            if ( resultCode == 1234 ) {
-                TextView textView = (TextView) findViewById(R.id.login_state);
-                String idvalue = data.getStringExtra("idvalue");
-                textView.setText(idvalue);
+    public void onBackPressed() {
+        if ( pressedTime == 0 ) {
+            Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
+            pressedTime = System.currentTimeMillis();
+        }
+        else {
+            int seconds = (int) (System.currentTimeMillis() - pressedTime);
+
+            if ( seconds > 2000 ) {
+                Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_LONG).show();
+                pressedTime = 0 ;
+            }
+            else {
+                super.onBackPressed();
+                finishAffinity();
             }
         }
     }

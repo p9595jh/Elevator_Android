@@ -9,12 +9,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class FreeAdapter extends BaseAdapter {
-    ArrayList<Free> list;
+public class MusicAdapter extends BaseAdapter {
+
+    ArrayList<Music> list;
     Context context;
     int resource;
 
-    public FreeAdapter(ArrayList<Free> list, Context context, int resource) {
+    public MusicAdapter(ArrayList<Music> list, Context context, int resource) {
         this.list = list;
         this.context = context;
         this.resource = resource;

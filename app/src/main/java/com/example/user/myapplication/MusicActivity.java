@@ -6,16 +6,22 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class FreeActivity extends AppCompatActivity {
+public class MusicActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.freepage);
 
-        new GetFreeData(FreeActivity.this).execute();
+        TextView type = findViewById(R.id.page_type);
+        type.setText("음악게시판");
+
+        new GetMusicData(MusicActivity.this).execute();
 
         Button button = findViewById(R.id.free_write);
         if ( !UserLoginData.didLogin() ) button.setVisibility(View.GONE);
@@ -23,7 +29,7 @@ public class FreeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
-                intent.putExtra("type", "free");
+                intent.putExtra("type", "music");
                 startActivity(intent);
             }
         });
@@ -34,7 +40,7 @@ public class FreeActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new GetFreeData(FreeActivity.this).execute();
+                new GetMusicData(MusicActivity.this).execute();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -60,5 +66,4 @@ public class FreeActivity extends AppCompatActivity {
             }
         }
     }
-
 }

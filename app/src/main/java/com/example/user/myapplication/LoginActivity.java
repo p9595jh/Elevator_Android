@@ -34,29 +34,7 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 new CheckLoginData(LoginActivity.this).execute(jsonObject);
-
-                if ( UserLoginData.didLogin() ) {
-                    id.setEnabled(false);
-                    pw.setEnabled(false);
-                    button.setEnabled(false);
-
-                    UserLoginData userLoginData = UserLoginData.getInstance();
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(userLoginData.getId());
-                    sb.append(", ");
-                    sb.append(userLoginData.getNickname());
-                    TextView textView = (TextView) findViewById(R.id.login_title);
-                    textView.setText(sb.toString());
-                }
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-        mainActivity.putExtra("idvalue", UserLoginData.getInstance().getId());
-        setResult(1234, mainActivity);
-        startActivityForResult(mainActivity, 1111);
     }
 }
